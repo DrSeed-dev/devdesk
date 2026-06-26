@@ -5,6 +5,7 @@ import ClockWidget from "./components/widgets/ClockWidget";
 import TodoWidget from "./components/widgets/TodoWidget";
 import QuoteWidget from "./components/widgets/QuoteWidget";
 import NotesWidget from "./components/widgets/NotesWidget";
+import GithubProfileWidget from "./components/widgets/GithubProfileWidget";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -49,7 +50,7 @@ function App() {
           </Card>
 
           <Card title="GitHub" description="View your developer profile.">
-            <p>GitHub profile widget will go here.</p>
+           <GithubProfileWidget />
           </Card>
 
           <Card title="Quote" description="Get a small programming      prompt.">
