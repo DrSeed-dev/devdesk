@@ -1,38 +1,44 @@
 import { useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import type { Todo } from "../../types/todo";
 
-const TODOS_STORAGE_KEY = "devdesk-todos";
+type Todo = {
+  id: string;
+  title: string;
+  isCompleted: boolean;
+};
+
+const STORAGE_KEY = "devdesk-todos";
+
+function createTodo(title: string): Todo {
+  return {
+    id: crypto.randomUUID(),
+    title,
+    isCompleted: false,
+  };
+}
 
 function TodoWidget() {
-  const [todos, setTodos] = useLocalStorage<Todo[]>(TODOS_STORAGE_KEY, []);
-  const [todoTitle, setTodoTitle] = useState("");
+  const [todos, setTodos] = useLocalStorage<Todo[]>(STORAGE_KEY, []);
+  const [taskTitle, setTaskTitle] = useState("");
 
   function handleAddTodo(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const trimmedTitle = todoTitle.trim();
+    const trimmedTitle = taskTitle.trim();
 
     if (!trimmedTitle) {
       return;
     }
 
-    const newTodo: Todo = {
-      id: crypto.randomUUID(),
-      title: trimmedTitle,
-      completed: false,
-      createdAt: new Date().toISOString(),
-    };
-
-    setTodos((currentTodos) => [newTodo, ...currentTodos]);
-    setTodoTitle("");
+    setTodos((currentTodos) => [...currentTodos, createTodo(trimmedTitle)]);
+    setTaskTitle("");
   }
 
   function handleToggleTodo(todoId: string) {
     setTodos((currentTodos) =>
       currentTodos.map((todo) =>
         todo.id === todoId
-          ? { ...todo, completed: !todo.completed }
+          ? { ...todo, isCompleted: !todo.isCompleted }
           : todo,
       ),
     );
@@ -49,10 +55,10 @@ function TodoWidget() {
       <form onSubmit={handleAddTodo} className="flex gap-2">
         <input
           type="text"
-          value={todoTitle}
-          onChange={(event) => setTodoTitle(event.target.value)}
+          value={taskTitle}
+          onChange={(event) => setTaskTitle(event.target.value)}
           placeholder="Add a task..."
-          className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-950"
         />
 
         <button
@@ -63,45 +69,45 @@ function TodoWidget() {
         </button>
       </form>
 
-      <ul className="mt-4 space-y-3">
+      <div className="mt-4 space-y-3">
         {todos.length === 0 ? (
-          <li className="rounded-xl border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
-            No tasks yet.
-          </li>
+          <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+            No tasks yet. Add one to start your flow.
+          </p>
         ) : (
           todos.map((todo) => (
-            <li
+            <div
               key={todo.id}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
+              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-slate-800 dark:bg-slate-950"
             >
               <input
                 type="checkbox"
-                checked={todo.completed}
+                checked={todo.isCompleted}
                 onChange={() => handleToggleTodo(todo.id)}
-                className="h-4 w-4 rounded border-slate-300"
+                className="h-4 w-4 rounded border-slate-300 text-sky-600"
               />
 
-              <span
+              <p
                 className={`min-w-0 flex-1 text-sm ${
-                  todo.completed
+                  todo.isCompleted
                     ? "text-slate-400 line-through"
                     : "text-slate-700 dark:text-slate-200"
                 }`}
               >
                 {todo.title}
-              </span>
+              </p>
 
               <button
                 type="button"
                 onClick={() => handleDeleteTodo(todo.id)}
-                className="text-sm font-medium text-rose-500 transition hover:text-rose-600"
+                className="text-sm font-medium text-rose-600 transition hover:text-rose-700"
               >
                 Delete
               </button>
-            </li>
+            </div>
           ))
         )}
-      </ul>
+      </div>
     </div>
   );
 }
