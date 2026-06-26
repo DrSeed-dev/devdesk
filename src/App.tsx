@@ -1,7 +1,8 @@
-import ClockWidget from "./components/widgets/ClockWidget";
 import Card from "./components/ui/Card";
 import ThemeToggle from "./components/ui/ThemeToggle";
 import { useTheme } from "./hooks/useTheme";
+import ClockWidget from "./components/widgets/ClockWidget";
+import TodoWidget from "./components/widgets/TodoWidget";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -49,8 +50,8 @@ function App() {
             <p>GitHub profile widget will go here.</p>
           </Card>
 
-          <Card title="Quote" description="Get a small programming prompt.">
-            <p>Programming quote widget will go here.</p>
+          <Card title="Todos" description="Manage your current tasks.">
+           <TodoWidget />
           </Card>
         </section>
       </div>
