@@ -4,6 +4,7 @@ import { useTheme } from "./hooks/useTheme";
 import ClockWidget from "./components/widgets/ClockWidget";
 import TodoWidget from "./components/widgets/TodoWidget";
 import QuoteWidget from "./components/widgets/QuoteWidget";
+import NotesWidget from "./components/widgets/NotesWidget";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -44,7 +45,7 @@ function App() {
           </Card>
 
           <Card title="Notes" description="Keep quick thoughts nearby.">
-            <p>Sticky notes widget will go here.</p>
+           <NotesWidget />
           </Card>
 
           <Card title="GitHub" description="View your developer profile.">
