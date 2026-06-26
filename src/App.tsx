@@ -1,3 +1,4 @@
+import ClockWidget from "./components/widgets/ClockWidget";
 import Card from "./components/ui/Card";
 import ThemeToggle from "./components/ui/ThemeToggle";
 import { useTheme } from "./hooks/useTheme";
@@ -29,7 +30,7 @@ function App() {
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <Card title="Clock" description="Track your current local time.">
-            <p>Live clock widget will go here.</p>
+           <ClockWidget />
           </Card>
 
           <Card title="Weather" description="Check your local conditions.">
