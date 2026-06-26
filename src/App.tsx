@@ -6,16 +6,21 @@ function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-6 text-slate-950 transition dark:bg-slate-950 dark:text-slate-100 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <main className="min-h-screen bg-slate-100 text-slate-950 transition dark:bg-slate-950 dark:text-slate-100">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
+        <header className="mb-8 flex flex-col gap-5 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-medium uppercase text-sky-600 dark:text-sky-400">
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
               Developer Productivity Dashboard
             </p>
-            <h1 className="mt-2 text-3xl font-bold">DevDesk</h1>
-            <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">
-              A focused dashboard for your daily developer workflow.
+
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
+              DevDesk
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
+              A focused workspace for your daily tools, tasks, notes, and
+              developer flow.
             </p>
           </div>
 
@@ -23,27 +28,27 @@ function App() {
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <Card title="Clock">
+          <Card title="Clock" description="Track your current local time.">
             <p>Live clock widget will go here.</p>
           </Card>
 
-          <Card title="Weather">
+          <Card title="Weather" description="Check your local conditions.">
             <p>Weather widget will go here.</p>
           </Card>
 
-          <Card title="Todos">
+          <Card title="Todos" description="Manage your current tasks.">
             <p>Todo list widget will go here.</p>
           </Card>
 
-          <Card title="Notes">
+          <Card title="Notes" description="Keep quick thoughts nearby.">
             <p>Sticky notes widget will go here.</p>
           </Card>
 
-          <Card title="GitHub">
+          <Card title="GitHub" description="View your developer profile.">
             <p>GitHub profile widget will go here.</p>
           </Card>
 
-          <Card title="Quote">
+          <Card title="Quote" description="Get a small programming prompt.">
             <p>Programming quote widget will go here.</p>
           </Card>
         </section>
