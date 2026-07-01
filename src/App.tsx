@@ -1,11 +1,12 @@
 import Card from "./components/ui/Card";
 import ThemeToggle from "./components/ui/ThemeToggle";
 import { useTheme } from "./hooks/useTheme";
-import ClockWidget from "./components/widgets/ClockWidget";
 import TodoWidget from "./components/widgets/TodoWidget";
-import QuoteWidget from "./components/widgets/QuoteWidget";
 import NotesWidget from "./components/widgets/NotesWidget";
 import GithubProfileWidget from "./components/widgets/GithubProfileWidget";
+import ClockWidget from "./components/widgets/ClockWidget"
+import QuoteWidget from "./components/widgets/QuoteWidget";
+import WeatherWidget from "./components/widgets/WeatherWidget";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -33,31 +34,30 @@ function App() {
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+
           <Card title="Clock" description="Track your current local time.">
-           <ClockWidget />
+            <ClockWidget />
           </Card>
 
           <Card title="Weather" description="Check your local conditions.">
-            <p>Weather widget will go here.</p>
+            <WeatherWidget />
           </Card>
 
           <Card title="Todos" description="Manage your current tasks.">
-           <TodoWidget />
+            <TodoWidget />
           </Card>
 
           <Card title="Notes" description="Keep quick thoughts nearby.">
-           <NotesWidget />
+            <NotesWidget />
           </Card>
 
           <Card title="GitHub" description="View your developer profile.">
-           <GithubProfileWidget />
+            <GithubProfileWidget />
           </Card>
 
-          <Card title="Quote" description="Get a small programming      prompt.">
-           <QuoteWidget />
+          <Card title="Quote" description="Get a small programming prompt.">
+            <QuoteWidget />
           </Card>
-
-
         </section>
       </div>
     </main>
