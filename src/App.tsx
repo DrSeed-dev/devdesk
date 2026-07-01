@@ -1,40 +1,46 @@
+import DashboardHeader from "./components/layout/DashboardHeader";
 import Card from "./components/ui/Card";
-import ThemeToggle from "./components/ui/ThemeToggle";
-import { useTheme } from "./hooks/useTheme";
-import TodoWidget from "./components/widgets/TodoWidget";
-import NotesWidget from "./components/widgets/NotesWidget";
+import StatCard from "./components/ui/StatCard";
+import ClockWidget from "./components/widgets/ClockWidget";
 import GithubProfileWidget from "./components/widgets/GithubProfileWidget";
-import ClockWidget from "./components/widgets/ClockWidget"
-import QuoteWidget from "./components/widgets/QuoteWidget";
+import NotesWidget from "./components/widgets/NotesWidget";
+import QuoteWidget from "./components/widgets/Quotewidget";
+import TodoWidget from "./components/widgets/TodoWidget";
 import WeatherWidget from "./components/widgets/WeatherWidget";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-950 transition dark:bg-slate-950 dark:text-slate-100">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
-        <header className="mb-8 flex flex-col gap-5 border-b border-slate-200 pb-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
-              Developer Productivity Dashboard
-            </p>
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
+        <DashboardHeader theme={theme} onToggleTheme={toggleTheme} />
 
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-              DevDesk
-            </h1>
+        <section
+          aria-label="Workspace summary"
+          className="mt-5 grid gap-3 sm:grid-cols-3"
+        >
+          <StatCard
+            label="Workspace"
+            value="6 widgets"
+            helperText="Clock, weather, todos, notes, GitHub, and quotes."
+          />
 
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
-              A focused workspace for your daily tools, tasks, notes, and
-              developer flow.
-            </p>
-          </div>
+          <StatCard
+            label="Persistence"
+            value="Local-first"
+            helperText="Theme, tasks, notes, city, and GitHub user stay saved."
+          />
 
-          <ThemeToggle theme={theme} onToggleTheme={toggleTheme} />
-        </header>
+          <StatCard
+            label="Responsive"
+            value="Mobile ready"
+            helperText="Single-column on phones, expanded grid on larger screens."
+          />
+        </section>
 
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-
+        <section className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
           <Card title="Clock" description="Track your current local time.">
             <ClockWidget />
           </Card>
