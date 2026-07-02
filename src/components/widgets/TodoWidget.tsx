@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import Button from "../ui/Button";
 
 type Todo = {
   id: string;
@@ -61,12 +62,7 @@ function TodoWidget() {
           className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-950"
         />
 
-        <button
-          type="submit"
-          className="rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700"
-        >
-          Add
-        </button>
+        <Button type="submit">Add</Button>
       </form>
 
       <div className="mt-4 space-y-3">
@@ -97,13 +93,14 @@ function TodoWidget() {
                 {todo.title}
               </p>
 
-              <button
+              <Button
                 type="button"
+                variant="danger"
                 onClick={() => handleDeleteTodo(todo.id)}
-                className="text-sm font-medium text-rose-600 transition hover:text-rose-700"
+                className="px-2 py-1"
               >
                 Delete
-              </button>
+              </Button>
             </div>
           ))
         )}

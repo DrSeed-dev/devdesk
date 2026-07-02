@@ -1,3 +1,11 @@
+import {
+  Clock as ClockIcon,
+  CloudSun,
+  GitFork,
+  ListTodo,
+  NotebookPen,
+  Quote as QuoteIcon,
+} from "lucide-react";
 import DashboardHeader from "./components/layout/DashboardHeader";
 import Card from "./components/ui/Card";
 import StatCard from "./components/ui/StatCard";
@@ -41,27 +49,51 @@ function App() {
         </section>
 
         <section className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-          <Card title="Clock" description="Track your current local time.">
+          <Card
+            title="Clock"
+            description="Track your current local time."
+            icon={ClockIcon}
+          >
             <ClockWidget />
           </Card>
 
-          <Card title="Weather" description="Check your local conditions.">
+          <Card
+            title="Weather"
+            description="Check your local conditions."
+            icon={CloudSun}
+          >
             <WeatherWidget />
           </Card>
 
-          <Card title="Todos" description="Manage your current tasks.">
+          <Card
+            title="Todos"
+            description="Manage your current tasks."
+            icon={ListTodo}
+          >
             <TodoWidget />
           </Card>
 
-          <Card title="Notes" description="Keep quick thoughts nearby.">
+          <Card
+            title="Notes"
+            description="Keep quick thoughts nearby."
+            icon={NotebookPen}
+          >
             <NotesWidget />
           </Card>
 
-          <Card title="GitHub" description="View your developer profile.">
+          <Card
+            title="GitHub"
+            description="View your developer profile."
+            icon={GitFork}
+          >
             <GithubProfileWidget />
           </Card>
 
-          <Card title="Quote" description="Get a small programming prompt.">
+          <Card
+            title="Quote"
+            description="Get a small programming prompt."
+            icon={QuoteIcon}
+          >
             <QuoteWidget />
           </Card>
         </section>

@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getGithubUser } from "../../lib/github";
 import type { GithubUser } from "../../types/github";
+import Button from "../ui/Button";
 
 const STORAGE_KEY = "devdesk-github-username";
 
@@ -66,12 +67,7 @@ function GithubProfileWidget() {
           className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-950"
         />
 
-        <button
-          type="submit"
-          className="rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700"
-        >
-          Search
-        </button>
+        <Button type="submit">Search</Button>
       </form>
 
       <div className="mt-5">

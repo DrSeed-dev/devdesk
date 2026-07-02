@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../ui/Button";
 
 type Quote = {
     text: string;
@@ -53,13 +54,9 @@ function QuoteWidget() {
                 </footer>
             </blockquote>
 
-            <button
-                type="button"
-                onClick={handleNewQuote}
-                className="self-start rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
-            >
+            <Button type="button" onClick={handleNewQuote} className="self-start">
                 New quote
-            </button>
+            </Button>
         </div>
     );
 }
