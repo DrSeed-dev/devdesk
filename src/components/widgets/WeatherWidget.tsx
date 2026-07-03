@@ -72,7 +72,11 @@ function WeatherWidget() {
     return (
         <div>
             <form onSubmit={handleSubmit} className="flex gap-2">
+                <label htmlFor="weather-city" className="sr-only">
+                    City
+                </label>
                 <input
+                    id="weather-city"
                     type="text"
                     value={cityInput}
                     onChange={(event) => setCityInput(event.target.value)}
@@ -85,13 +89,27 @@ function WeatherWidget() {
 
             <div className="mt-5">
                 {isLoading ? (
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Loading weather...
-                    </p>
+                    <div
+                        role="status"
+                        aria-live="polite"
+                        className="animate-pulse"
+                    >
+                        <span className="sr-only">Loading weather…</span>
+                        <div className="h-3 w-32 rounded bg-slate-200 dark:bg-slate-800" />
+                        <div className="mt-3 h-9 w-24 rounded bg-slate-200 dark:bg-slate-800" />
+                        <div className="mt-5 grid grid-cols-3 gap-2">
+                            <div className="h-12 rounded-xl bg-slate-100 dark:bg-slate-900" />
+                            <div className="h-12 rounded-xl bg-slate-100 dark:bg-slate-900" />
+                            <div className="h-12 rounded-xl bg-slate-100 dark:bg-slate-900" />
+                        </div>
+                    </div>
                 ) : null}
 
                 {errorMessage ? (
-                    <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300">
+                    <p
+                        role="alert"
+                        className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300"
+                    >
                         {errorMessage}
                     </p>
                 ) : null}
