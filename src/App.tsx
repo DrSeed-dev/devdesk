@@ -33,18 +33,24 @@ function App() {
             label="Workspace"
             value="6 widgets"
             helperText="Clock, weather, todos, notes, GitHub, and quotes."
+            className="animate-fade-in-up"
+            style={{ animationDelay: "0ms" }}
           />
 
           <StatCard
             label="Persistence"
             value="Local-first"
             helperText="Theme, tasks, notes, city, and GitHub user stay saved."
+            className="animate-fade-in-up"
+            style={{ animationDelay: "60ms" }}
           />
 
           <StatCard
             label="Responsive"
             value="Mobile ready"
             helperText="Single-column on phones, expanded grid on larger screens."
+            className="animate-fade-in-up"
+            style={{ animationDelay: "120ms" }}
           />
         </section>
 
@@ -53,6 +59,8 @@ function App() {
             title="Clock"
             description="Track your current local time."
             icon={ClockIcon}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "180ms" }}
           >
             <ClockWidget />
           </Card>
@@ -61,6 +69,8 @@ function App() {
             title="Weather"
             description="Check your local conditions."
             icon={CloudSun}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "240ms" }}
           >
             <WeatherWidget />
           </Card>
@@ -69,6 +79,8 @@ function App() {
             title="Todos"
             description="Manage your current tasks."
             icon={ListTodo}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "300ms" }}
           >
             <TodoWidget />
           </Card>
@@ -77,6 +89,8 @@ function App() {
             title="Notes"
             description="Keep quick thoughts nearby."
             icon={NotebookPen}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "360ms" }}
           >
             <NotesWidget />
           </Card>
@@ -85,6 +99,8 @@ function App() {
             title="GitHub"
             description="View your developer profile."
             icon={GitFork}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "420ms" }}
           >
             <GithubProfileWidget />
           </Card>
@@ -93,6 +109,8 @@ function App() {
             title="Quote"
             description="Get a small programming prompt."
             icon={QuoteIcon}
+            className="animate-fade-in-up"
+            style={{ animationDelay: "480ms" }}
           >
             <QuoteWidget />
           </Card>
