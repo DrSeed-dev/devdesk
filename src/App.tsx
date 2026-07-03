@@ -7,8 +7,8 @@ import {
   Quote as QuoteIcon,
 } from "lucide-react";
 import DashboardHeader from "./components/layout/DashboardHeader";
+import WorkspaceStrip from "./components/layout/WorkspaceStrip";
 import Card from "./components/ui/Card";
-import StatCard from "./components/ui/StatCard";
 import ClockWidget from "./components/widgets/ClockWidget";
 import GithubProfileWidget from "./components/widgets/GithubProfileWidget";
 import NotesWidget from "./components/widgets/NotesWidget";
@@ -25,34 +25,7 @@ function App() {
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
         <DashboardHeader theme={theme} onToggleTheme={toggleTheme} />
 
-        <section
-          aria-label="Workspace summary"
-          className="mt-5 grid gap-4 sm:grid-cols-3"
-        >
-          <StatCard
-            label="Workspace"
-            value="6 widgets"
-            helperText="Clock, weather, todos, notes, GitHub, and quotes."
-            className="animate-fade-in-up"
-            style={{ animationDelay: "0ms" }}
-          />
-
-          <StatCard
-            label="Persistence"
-            value="Local-first"
-            helperText="Theme, tasks, notes, city, and GitHub user stay saved."
-            className="animate-fade-in-up"
-            style={{ animationDelay: "60ms" }}
-          />
-
-          <StatCard
-            label="Responsive"
-            value="Mobile ready"
-            helperText="Single-column on phones, expanded grid on larger screens."
-            className="animate-fade-in-up"
-            style={{ animationDelay: "120ms" }}
-          />
-        </section>
+        <WorkspaceStrip />
 
         <section className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
           <Card
@@ -60,7 +33,7 @@ function App() {
             description="Track your current local time."
             icon={ClockIcon}
             className="animate-fade-in-up"
-            style={{ animationDelay: "180ms" }}
+            style={{ animationDelay: "0ms" }}
           >
             <ClockWidget />
           </Card>
@@ -70,7 +43,7 @@ function App() {
             description="Check your local conditions."
             icon={CloudSun}
             className="animate-fade-in-up"
-            style={{ animationDelay: "240ms" }}
+            style={{ animationDelay: "60ms" }}
           >
             <WeatherWidget />
           </Card>
@@ -80,7 +53,7 @@ function App() {
             description="Manage your current tasks."
             icon={ListTodo}
             className="animate-fade-in-up"
-            style={{ animationDelay: "300ms" }}
+            style={{ animationDelay: "120ms" }}
           >
             <TodoWidget />
           </Card>
@@ -90,7 +63,7 @@ function App() {
             description="Keep quick thoughts nearby."
             icon={NotebookPen}
             className="animate-fade-in-up"
-            style={{ animationDelay: "360ms" }}
+            style={{ animationDelay: "180ms" }}
           >
             <NotesWidget />
           </Card>
@@ -100,7 +73,7 @@ function App() {
             description="View your developer profile."
             icon={GitFork}
             className="animate-fade-in-up"
-            style={{ animationDelay: "420ms" }}
+            style={{ animationDelay: "240ms" }}
           >
             <GithubProfileWidget />
           </Card>
@@ -110,7 +83,7 @@ function App() {
             description="Get a small programming prompt."
             icon={QuoteIcon}
             className="animate-fade-in-up"
-            style={{ animationDelay: "480ms" }}
+            style={{ animationDelay: "300ms" }}
           >
             <QuoteWidget />
           </Card>

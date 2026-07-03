@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import Button from "../ui/Button";
+import { STORAGE_KEYS } from "../../lib/storageKeys";
 
 type Todo = {
   id: string;
@@ -8,7 +9,6 @@ type Todo = {
   isCompleted: boolean;
 };
 
-const STORAGE_KEY = "devdesk-todos";
 
 function createTodo(title: string): Todo {
   return {
@@ -19,7 +19,7 @@ function createTodo(title: string): Todo {
 }
 
 function TodoWidget() {
-  const [todos, setTodos] = useLocalStorage<Todo[]>(STORAGE_KEY, []);
+  const [todos, setTodos] = useLocalStorage<Todo[]>(STORAGE_KEYS.todos, []);
   const [taskTitle, setTaskTitle] = useState("");
 
   function handleAddTodo(event: React.FormEvent<HTMLFormElement>) {

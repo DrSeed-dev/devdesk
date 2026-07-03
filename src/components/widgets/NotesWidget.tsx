@@ -2,8 +2,8 @@ import { useState, type FormEvent } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import type { Note } from "../../types/note";
 import Button from "../ui/Button";
+import { STORAGE_KEYS } from "../../lib/storageKeys";
 
-const STORAGE_KEY = "devdesk-notes";
 
 function createNote(content: string): Note {
   return {
@@ -14,7 +14,7 @@ function createNote(content: string): Note {
 }
 
 function NotesWidget() {
-  const [notes, setNotes] = useLocalStorage<Note[]>(STORAGE_KEY, []);
+  const [notes, setNotes] = useLocalStorage<Note[]>(STORAGE_KEYS.notes, []);
   const [noteContent, setNoteContent] = useState("");
 
   function handleAddNote(event: FormEvent<HTMLFormElement>) {

@@ -3,8 +3,8 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getWeatherByCity } from "../../lib/weather";
 import type { WeatherData } from "../../types/weather";
 import Button from "../ui/Button";
+import { STORAGE_KEYS } from "../../lib/storageKeys";
 
-const STORAGE_KEY = "devdesk-weather-city";
 
 function getWeatherDescription(code: number) {
     if (code === 0) return "Clear sky";
@@ -20,7 +20,7 @@ function getWeatherDescription(code: number) {
 }
 
 function WeatherWidget() {
-    const [city, setCity] = useLocalStorage(STORAGE_KEY, "Lagos");
+    const [city, setCity] = useLocalStorage(STORAGE_KEYS.weatherCity, "Lagos");
     const [cityInput, setCityInput] = useState(city);
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [isLoading, setIsLoading] = useState(false);

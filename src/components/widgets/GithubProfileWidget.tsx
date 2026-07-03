@@ -3,11 +3,11 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getGithubUser } from "../../lib/github";
 import type { GithubUser } from "../../types/github";
 import Button from "../ui/Button";
+import { STORAGE_KEYS } from "../../lib/storageKeys";
 
-const STORAGE_KEY = "devdesk-github-username";
 
 function GithubProfileWidget() {
-  const [username, setUsername] = useLocalStorage(STORAGE_KEY, "octocat");
+  const [username, setUsername] = useLocalStorage(STORAGE_KEYS.githubUsername, "octocat");
   const [usernameInput, setUsernameInput] = useState(username);
   const [user, setUser] = useState<GithubUser | null>(null);
   const [isLoading, setIsLoading] = useState(false);
