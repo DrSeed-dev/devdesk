@@ -27,7 +27,7 @@ function App() {
 
         <section
           aria-label="Workspace summary"
-          className="mt-5 grid gap-3 sm:grid-cols-3"
+          className="mt-5 grid gap-4 sm:grid-cols-3"
         >
           <StatCard
             label="Workspace"

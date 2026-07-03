@@ -109,7 +109,7 @@ function WeatherWidget() {
                                 </p>
                             </div>
 
-                            <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-950 dark:text-sky-300">
+                            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                                 {weather.isDay ? "Day" : "Night"}
                             </span>
                         </div>
