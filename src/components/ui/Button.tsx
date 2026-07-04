@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "danger";
+  variant?: "primary" | "danger" | "ghost";
 };
 
 const baseStyles =
@@ -11,6 +11,8 @@ const variantStyles: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
     "bg-sky-600 text-white shadow-sm hover:bg-sky-700 focus:ring-sky-500",
   danger: "text-rose-600 hover:text-rose-700 focus:ring-rose-400",
+  ghost:
+    "border border-slate-300 text-slate-600 hover:bg-slate-50 focus:ring-sky-500 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800",
 };
 
 function Button({ variant = "primary", className = "", ...props }: ButtonProps) {

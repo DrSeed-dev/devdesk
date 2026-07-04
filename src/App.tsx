@@ -30,7 +30,7 @@ function App() {
         <section className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
           <Card
             title="Clock"
-            description="Track your current local time."
+            description="Time and alarms."
             icon={ClockIcon}
             className="animate-fade-in-up"
             style={{ animationDelay: "0ms" }}
