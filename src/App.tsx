@@ -6,6 +6,7 @@ import {
   NotebookPen,
   Quote as QuoteIcon,
 } from "lucide-react";
+import CodeBackground from "./components/layout/CodeBackground";
 import DashboardHeader from "./components/layout/DashboardHeader";
 import WorkspaceStrip from "./components/layout/WorkspaceStrip";
 import Card from "./components/ui/Card";
@@ -21,8 +22,10 @@ function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <main className="app-background min-h-screen text-slate-950 transition dark:text-slate-100">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
+    <main className="app-background relative min-h-screen overflow-hidden text-slate-950 transition dark:text-slate-100">
+      <CodeBackground />
+
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
         <DashboardHeader theme={theme} onToggleTheme={toggleTheme} />
 
         <WorkspaceStrip />
