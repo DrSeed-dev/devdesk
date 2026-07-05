@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const SYNC_EVENT = "devdesk-storage-sync";
+
+type SyncDetail = {
+  key: string;
+  instanceId: string;
+};
 
 function readStoredValue<T>(key: string, initialValue: T): T {
   const savedValue = localStorage.getItem(key);
@@ -17,32 +22,57 @@ function readStoredValue<T>(key: string, initialValue: T): T {
 }
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
+  // Stable, unique ID per component instance — safe to read during
+  // render, unlike a manual ref/counter.
+  const instanceId = useId();
+
+  // Neither of these is ever read during render — only inside effects
+  // and event handlers — so they don't trip the refs-during-render rule.
+  const isFirstRun = useRef(true);
+  const isSyncUpdate = useRef(false);
+
   const [value, setValue] = useState<T>(() =>
     readStoredValue(key, initialValue),
   );
 
-  // Persist this instance's own changes, then tell every other
-  // component reading the same key that it needs to re-sync.
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-    window.dispatchEvent(new CustomEvent(SYNC_EVENT, { detail: key }));
-  }, [key, value]);
+    // Nothing actually changed yet on mount — just skip announcing it.
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
 
-  // Listen for changes written by other components sharing this key,
-  // so every reader of `devdesk-todos` (for example) stays live-accurate
-  // without prop-drilling state through the whole app.
+    // This update arrived FROM another instance's broadcast — the data
+    // is already correct in localStorage, so writing and re-announcing
+    // it here is exactly what caused the infinite ping-pong between
+    // two components sharing the same key. Skip it, once, then reset.
+    if (isSyncUpdate.current) {
+      isSyncUpdate.current = false;
+      return;
+    }
+
+    localStorage.setItem(key, JSON.stringify(value));
+
+    window.dispatchEvent(
+      new CustomEvent<SyncDetail>(SYNC_EVENT, { detail: { key, instanceId } }),
+    );
+  }, [key, value, instanceId]);
+
   useEffect(() => {
     function handleSync(event: Event) {
-      const changedKey = (event as CustomEvent<string>).detail;
+      const { key: changedKey, instanceId: sourceId } = (
+        event as CustomEvent<SyncDetail>
+      ).detail;
 
-      if (changedKey === key) {
+      if (changedKey === key && sourceId !== instanceId) {
+        isSyncUpdate.current = true;
         setValue(readStoredValue(key, initialValue));
       }
     }
 
     window.addEventListener(SYNC_EVENT, handleSync);
     return () => window.removeEventListener(SYNC_EVENT, handleSync);
-  }, [key]);
+  }, [key, instanceId]);
 
   return [value, setValue] as const;
 }

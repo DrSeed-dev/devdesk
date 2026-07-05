@@ -31,17 +31,29 @@ function playAlarmSound() {
       (window as unknown as { webkitAudioContext: typeof AudioContext })
         .webkitAudioContext;
     const context = new AudioContextClass();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
 
-    oscillator.type = "sine";
-    oscillator.frequency.value = 880;
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-    gain.gain.setValueAtTime(0.15, context.currentTime);
+    const start = () => {
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
 
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.5);
+      oscillator.type = "sine";
+      oscillator.frequency.value = 880;
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      gain.gain.setValueAtTime(0.15, context.currentTime);
+
+      oscillator.start();
+      oscillator.stop(context.currentTime + 0.5);
+    };
+
+    // Browsers can create a new AudioContext already "suspended" if it
+    // wasn't triggered by a direct user gesture — which a timer firing
+    // never is. Resuming it explicitly avoids the sound silently failing.
+    if (context.state === "suspended") {
+      void context.resume().then(start);
+    } else {
+      start();
+    }
   } catch {
     // Web Audio unsupported — the visual banner still shows either way.
   }
@@ -187,9 +199,8 @@ function AlarmPanel() {
             .map((alarm) => (
               <div
                 key={alarm.id}
-                className={`flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 dark:border-slate-800 dark:bg-slate-950 ${
-                  alarm.enabled ? "" : "opacity-60"
-                }`}
+                className={`flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 dark:border-slate-800 dark:bg-slate-950 ${alarm.enabled ? "" : "opacity-60"
+                  }`}
               >
                 <div className="min-w-0">
                   <span className="block text-base font-semibold text-slate-900 dark:text-slate-100">
