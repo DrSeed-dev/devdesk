@@ -1,37 +1,68 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getGithubUser } from "../../lib/github";
+import { getCachedGithubUser, setCachedGithubUser } from "../../lib/githubCache";
 import type { GithubUser } from "../../types/github";
 import Button from "../ui/Button";
 import { STORAGE_KEYS } from "../../lib/storageKeys";
 
-
 function GithubProfileWidget() {
-  const [username, setUsername] = useLocalStorage(STORAGE_KEYS.githubUsername, "octocat");
+  const [username, setUsername] = useLocalStorage(
+    STORAGE_KEYS.githubUsername,
+    "octocat",
+  );
   const [usernameInput, setUsernameInput] = useState(username);
   const [user, setUser] = useState<GithubUser | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isStale, setIsStale] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
     async function loadGithubUser() {
+      const cached = getCachedGithubUser(username);
+
+      // A fresh cache hit skips the network entirely — no reason to
+      // spend API quota re-fetching something we already know.
+      if (cached?.isFresh) {
+        setUser(cached.user);
+        setErrorMessage("");
+        setIsStale(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
         setErrorMessage("");
 
         const githubUser = await getGithubUser(username, controller.signal);
         setUser(githubUser);
+        setIsStale(false);
+        setCachedGithubUser(username, githubUser);
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
           return;
         }
 
-        setUser(null);
-        setErrorMessage(
-          error instanceof Error ? error.message : "Something went wrong.",
-        );
+        // The fetch failed — often the rate limit — but if we have
+        // ANY previously saved copy of this user, show that instead
+        // of a dead end. Stale data beats no data.
+        if (cached) {
+          setUser(cached.user);
+          setIsStale(true);
+          setErrorMessage(
+            error instanceof Error
+              ? `${error.message} Showing the last saved result.`
+              : "Showing the last saved result.",
+          );
+        } else {
+          setUser(null);
+          setIsStale(false);
+          setErrorMessage(
+            error instanceof Error ? error.message : "Something went wrong.",
+          );
+        }
       } finally {
         setIsLoading(false);
       }
@@ -93,7 +124,7 @@ function GithubProfileWidget() {
           </div>
         ) : null}
 
-        {errorMessage ? (
+        {errorMessage && !user ? (
           <p
             role="alert"
             className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300"
@@ -104,6 +135,15 @@ function GithubProfileWidget() {
 
         {user && !isLoading ? (
           <div>
+            {isStale && errorMessage ? (
+              <p
+                role="status"
+                className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-300"
+              >
+                {errorMessage}
+              </p>
+            ) : null}
+
             <div className="flex items-center gap-4">
               <img
                 src={user.avatar_url}
