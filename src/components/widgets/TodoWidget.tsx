@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useToast } from "../../context/ToastContext";
 import Button from "../ui/Button";
 import { STORAGE_KEYS } from "../../lib/storageKeys";
 
@@ -8,7 +9,6 @@ type Todo = {
   title: string;
   isCompleted: boolean;
 };
-
 
 function createTodo(title: string): Todo {
   return {
@@ -21,6 +21,7 @@ function createTodo(title: string): Todo {
 function TodoWidget() {
   const [todos, setTodos] = useLocalStorage<Todo[]>(STORAGE_KEYS.todos, []);
   const [taskTitle, setTaskTitle] = useState("");
+  const { showUndoToast } = useToast();
 
   function handleAddTodo(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,9 +47,17 @@ function TodoWidget() {
   }
 
   function handleDeleteTodo(todoId: string) {
+    const deletedTodo = todos.find((todo) => todo.id === todoId);
+
     setTodos((currentTodos) =>
       currentTodos.filter((todo) => todo.id !== todoId),
     );
+
+    if (deletedTodo) {
+      showUndoToast("Task deleted", () => {
+        setTodos((currentTodos) => [...currentTodos, deletedTodo]);
+      });
+    }
   }
 
   return (
@@ -65,7 +74,7 @@ function TodoWidget() {
         <Button type="submit">Add</Button>
       </form>
 
-      <div className="mt-4 space-y-3">
+      <div className="thin-scrollbar mt-4 max-h-[280px] space-y-3 overflow-y-auto pr-1">
         {todos.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
             No tasks yet. Add one to start your flow.

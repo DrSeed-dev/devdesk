@@ -4,4 +4,5 @@ export const STORAGE_KEYS = {
   weatherCity: "devdesk-weather-city",
   githubUsername: "devdesk-github-username",
   alarms: "devdesk-alarms",
+  contacts: "devdesk-contacts",
 } as const;

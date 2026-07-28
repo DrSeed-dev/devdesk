@@ -55,3 +55,32 @@ body {
     transparent 45%
   );
 }
+
+/* Thin, theme-aware scrollbar for the fixed-height list containers
+   (Todos, Notes, Alarms) — the default browser scrollbar is bulky
+   and clashes with the rest of the restrained visual language. */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(203 213 225) transparent;
+}
+
+.dark .thin-scrollbar {
+  scrollbar-color: rgb(51 65 85) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgb(203 213 225);
+  border-radius: 9999px;
+}
+
+.dark .thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgb(51 65 85);
+}
