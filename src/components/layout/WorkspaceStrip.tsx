@@ -25,14 +25,14 @@ function WorkspaceStrip() {
   ];
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-500 dark:text-slate-400">
+    <div className="hidden items-center gap-x-4 text-xs font-medium text-slate-600 dark:text-slate-300 lg:flex">
       {stats.map((stat, index) => (
         <span
           key={stat}
           className={
             index < stats.length - 1
-              ? "border-r border-slate-200 pr-4 dark:border-slate-800"
-              : ""
+              ? "whitespace-nowrap border-r border-slate-200 pr-4 dark:border-slate-800"
+              : "whitespace-nowrap"
           }
         >
           {stat}

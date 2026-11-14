@@ -1,12 +1,6 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import Button from "../components/ui/Button";
+import { ToastContext } from "../hooks/useToast";
 
 type ToastState = {
   id: number;
@@ -14,11 +8,6 @@ type ToastState = {
   onUndo: () => void;
 } | null;
 
-type ToastContextValue = {
-  showUndoToast: (message: string, onUndo: () => void) => void;
-};
-
-const ToastContext = createContext<ToastContextValue | null>(null);
 const AUTO_DISMISS_MS = 5000;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -61,7 +50,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         <div
           role="status"
           aria-live="polite"
-          className="fixed inset-x-0 bottom-4 z-[60] flex justify-center px-4"
+          className="fixed inset-x-0 bottom-12 z-[60] flex justify-center px-4"
         >
           <div className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-100 shadow-2xl">
             <span>{toast.message}</span>
@@ -77,14 +66,4 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       ) : null}
     </ToastContext.Provider>
   );
-}
-
-export function useToast() {
-  const context = useContext(ToastContext);
-
-  if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
-
-  return context;
 }

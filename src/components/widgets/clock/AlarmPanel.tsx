@@ -140,7 +140,7 @@ function AlarmPanel() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-0 flex-1 flex-col">
       {ringingAlarm ? (
         <div
           role="alert"
@@ -187,7 +187,7 @@ function AlarmPanel() {
         <Button type="submit">Add</Button>
       </form>
 
-      <div className="thin-scrollbar mt-4 max-h-[280px] space-y-2 overflow-y-auto pr-1">
+      <div className="thin-scrollbar mt-4 max-h-72 min-h-0 space-y-2 overflow-y-auto pr-1 lg:max-h-none lg:flex-1">
         {alarms.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
             No alarms yet. Set one above.
@@ -203,7 +203,7 @@ function AlarmPanel() {
                   }`}
               >
                 <div className="min-w-0">
-                  <span className="block text-base font-semibold text-slate-900 dark:text-slate-100">
+                  <span className="block text-base font-bold text-slate-900 dark:text-slate-100">
                     {formatAlarmTime(alarm.time)}
                   </span>
                   {alarm.label ? (

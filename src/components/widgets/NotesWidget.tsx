@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../hooks/useToast";
 import { formatRelativeTime } from "../../lib/formatRelativeTime";
 import type { Note } from "../../types/note";
 import Button from "../ui/Button";
@@ -60,7 +60,7 @@ function NotesWidget() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-0 flex-1 flex-col">
       <form onSubmit={handleAddNote} className="space-y-3">
         <textarea
           value={noteContent}
@@ -72,7 +72,7 @@ function NotesWidget() {
         <Button type="submit">Add note</Button>
       </form>
 
-      <div className="thin-scrollbar mt-4 max-h-[280px] space-y-2 overflow-y-auto pr-1">
+      <div className="thin-scrollbar mt-4 max-h-72 min-h-0 space-y-2 overflow-y-auto pr-1 lg:max-h-none lg:flex-1">
         {notes.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
             No notes yet. Capture a thought before it disappears.
@@ -85,7 +85,7 @@ function NotesWidget() {
               onClick={() => setOpenNoteId(note.id)}
               className="block w-full rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-left transition hover:border-amber-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:border-amber-900/60 dark:bg-amber-950/30 dark:focus:ring-offset-slate-900"
             >
-              <p className="truncate text-sm text-slate-800 dark:text-amber-50">
+              <p className="truncate text-sm font-medium text-slate-900 dark:text-amber-50">
                 {note.content || "(empty note)"}
               </p>
               <p className="mt-0.5 text-xs text-amber-700/70 dark:text-amber-400/60">

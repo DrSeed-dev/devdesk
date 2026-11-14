@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { ExternalLink } from "lucide-react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../hooks/useToast";
 import { STORAGE_KEYS } from "../../lib/storageKeys";
 import type { Contact } from "../../types/contact";
 import Button from "../ui/Button";
@@ -62,7 +62,7 @@ function ContactsWidget() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-0 flex-1 flex-col">
       <form onSubmit={handleAddContact} className="space-y-2">
         <div className="flex gap-2">
           <label htmlFor="contact-name" className="sr-only">
@@ -113,7 +113,7 @@ function ContactsWidget() {
         </div>
       </form>
 
-      <div className="thin-scrollbar mt-4 max-h-[280px] space-y-2 overflow-y-auto pr-1">
+      <div className="thin-scrollbar mt-4 max-h-72 min-h-0 space-y-2 overflow-y-auto pr-1 lg:max-h-none lg:flex-1">
         {contacts.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
             No contacts yet. Save people worth remembering.
@@ -125,7 +125,7 @@ function ContactsWidget() {
               className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 dark:border-slate-800 dark:bg-slate-950"
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
+                <p className="truncate text-sm font-bold text-slate-900 dark:text-slate-100">
                   {contact.name}
                 </p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">

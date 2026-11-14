@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../hooks/useToast";
 import Button from "../ui/Button";
 import { STORAGE_KEYS } from "../../lib/storageKeys";
 
@@ -61,7 +61,7 @@ function TodoWidget() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-0 flex-1 flex-col">
       <form onSubmit={handleAddTodo} className="flex gap-2">
         <input
           type="text"
@@ -74,7 +74,7 @@ function TodoWidget() {
         <Button type="submit">Add</Button>
       </form>
 
-      <div className="thin-scrollbar mt-4 max-h-[280px] space-y-3 overflow-y-auto pr-1">
+      <div className="thin-scrollbar mt-4 max-h-72 min-h-0 space-y-3 overflow-y-auto pr-1 lg:max-h-none lg:flex-1">
         {todos.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-300 px-4 py-6 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
             No tasks yet. Add one to start your flow.
@@ -96,7 +96,7 @@ function TodoWidget() {
                 className={`min-w-0 flex-1 text-sm ${
                   todo.isCompleted
                     ? "text-slate-400 line-through"
-                    : "text-slate-700 dark:text-slate-200"
+                    : "font-medium text-slate-900 dark:text-slate-100"
                 }`}
               >
                 {todo.title}

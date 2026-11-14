@@ -4,109 +4,117 @@ import {
   GitFork,
   ListTodo,
   NotebookPen,
-  Quote as QuoteIcon,
   Users,
 } from "lucide-react";
 import CodeBackground from "./components/layout/CodeBackground";
-import DashboardHeader from "./components/layout/DashboardHeader";
-import WorkspaceStrip from "./components/layout/WorkspaceStrip";
-import Card from "./components/ui/Card";
+import Sidebar from "./components/layout/Sidebar";
+import StatusBar from "./components/layout/StatusBar";
+import TopBar from "./components/layout/TopBar";
+import {
+  ContactCount,
+  GithubHandle,
+  NoteCount,
+  OpenTaskCount,
+  WeatherCity,
+} from "./components/layout/PanelMeta";
+import Panel from "./components/ui/Panel";
 import ClockWidget from "./components/widgets/ClockWidget";
 import ContactsWidget from "./components/widgets/ContactsWidget";
 import GithubProfileWidget from "./components/widgets/GithubProfileWidget";
 import NotesWidget from "./components/widgets/NotesWidget";
-import QuoteWidget from "./components/widgets/QuoteWidget";
 import TodoWidget from "./components/widgets/TodoWidget";
 import WeatherWidget from "./components/widgets/WeatherWidget";
-import { useTheme } from "./hooks/useTheme";
 import { ToastProvider } from "./context/ToastContext";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <ToastProvider>
-      <main className="app-background relative min-h-screen overflow-hidden text-slate-950 transition dark:text-slate-100">
+      <div className="app-background relative flex min-h-screen text-slate-950 dark:text-slate-100 lg:h-dvh lg:overflow-hidden">
         <CodeBackground />
 
-        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
-          <DashboardHeader theme={theme} onToggleTheme={toggleTheme} />
+        <Sidebar />
 
-          <WorkspaceStrip />
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col lg:min-h-0">
+          <TopBar theme={theme} onToggleTheme={toggleTheme} />
 
-          <section className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-            <Card
-              title="Clock"
-              description="Time and alarms."
-              icon={ClockIcon}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "0ms" }}
-            >
-              <ClockWidget />
-            </Card>
+          <main className="flex flex-1 flex-col p-3 lg:min-h-0">
+            <div className="grid gap-3 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:grid-rows-[minmax(0,1fr)]">
+              <div className="flex flex-col gap-3 lg:min-h-0">
+                <Panel
+                  id="panel-tasks"
+                  title="Tasks"
+                  icon={ListTodo}
+                  meta={<OpenTaskCount />}
+                  className="lg:flex-1"
+                >
+                  <TodoWidget />
+                </Panel>
 
-            <Card
-              title="Weather"
-              description="Check your local conditions."
-              icon={CloudSun}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "60ms" }}
-            >
-              <WeatherWidget />
-            </Card>
+                <Panel
+                  id="panel-github"
+                  title="GitHub"
+                  icon={GitFork}
+                  meta={<GithubHandle />}
+                  scroll
+                  className="lg:flex-1"
+                >
+                  <GithubProfileWidget />
+                </Panel>
+              </div>
 
-            <Card
-              title="Todos"
-              description="Manage your current tasks."
-              icon={ListTodo}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "120ms" }}
-            >
-              <TodoWidget />
-            </Card>
+              <div className="flex flex-col gap-3 lg:min-h-0">
+                <Panel
+                  id="panel-notes"
+                  title="Notes"
+                  icon={NotebookPen}
+                  meta={<NoteCount />}
+                  className="lg:flex-[1.3]"
+                >
+                  <NotesWidget />
+                </Panel>
 
-            <Card
-              title="Notes"
-              description="Keep quick thoughts nearby."
-              icon={NotebookPen}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "180ms" }}
-            >
-              <NotesWidget />
-            </Card>
+                <Panel
+                  id="panel-people"
+                  title="People"
+                  icon={Users}
+                  meta={<ContactCount />}
+                  className="lg:flex-1"
+                >
+                  <ContactsWidget />
+                </Panel>
+              </div>
 
-            <Card
-              title="GitHub"
-              description="View your developer profile."
-              icon={GitFork}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "240ms" }}
-            >
-              <GithubProfileWidget />
-            </Card>
+              <div className="flex flex-col gap-3 lg:min-h-0">
+                <Panel
+                  id="panel-clock"
+                  title="Clock"
+                  icon={ClockIcon}
+                  scroll
+                  className="lg:flex-[0.9]"
+                >
+                  <ClockWidget />
+                </Panel>
 
-            <Card
-              title="Contacts"
-              description="People worth remembering."
-              icon={Users}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "300ms" }}
-            >
-              <ContactsWidget />
-            </Card>
+                <Panel
+                  id="panel-weather"
+                  title="Weather"
+                  icon={CloudSun}
+                  meta={<WeatherCity />}
+                  scroll
+                  className="lg:flex-[1.1]"
+                >
+                  <WeatherWidget />
+                </Panel>
+              </div>
+            </div>
+          </main>
 
-            <Card
-              title="Quote"
-              description="Get a small programming prompt."
-              icon={QuoteIcon}
-              className="animate-fade-in-up"
-              style={{ animationDelay: "360ms" }}
-            >
-              <QuoteWidget />
-            </Card>
-          </section>
+          <StatusBar />
         </div>
-      </main>
+      </div>
     </ToastProvider>
   );
 }

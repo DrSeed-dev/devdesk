@@ -21,7 +21,7 @@ function ClockWidget() {
         onChange={setActiveTab}
       />
 
-      <div className="mt-4">
+      <div className="mt-4 flex min-h-0 flex-1 flex-col">
         {activeTab === "clock" ? <ClockPanel /> : <AlarmPanel />}
       </div>
     </div>
