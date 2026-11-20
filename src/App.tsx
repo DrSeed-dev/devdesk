@@ -6,6 +6,7 @@ import {
   NotebookPen,
   Users,
 } from "lucide-react";
+import AlarmWatcher from "./components/layout/AlarmWatcher";
 import CodeBackground from "./components/layout/CodeBackground";
 import Sidebar from "./components/layout/Sidebar";
 import StatusBar from "./components/layout/StatusBar";
@@ -34,6 +35,7 @@ function App() {
   return (
     <ToastProvider>
       <TabTitle />
+      <AlarmWatcher />
 
       <div className="app-background relative flex min-h-screen text-slate-950 dark:text-slate-100 lg:h-dvh lg:overflow-hidden">
         <CodeBackground />
