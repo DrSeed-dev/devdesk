@@ -84,3 +84,74 @@ body {
 .dark .thin-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgb(51 65 85);
 }
+/* Quote ticker in the status bar: long quotes scroll, short ones stay put. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 20s) linear infinite;
+}
+
+.marquee-paused,
+.quote-ticker:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+.quote-ticker-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent 100%
+  );
+}
+
+/* For people who ask their system for less motion: nothing scrolls by
+   itself. A long quote can be scrolled sideways by hand instead. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-marquee {
+    animation: none;
+  }
+
+  .quote-ticker {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .quote-ticker-fade {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .marquee-duplicate {
+    display: none;
+  }
+}

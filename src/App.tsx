@@ -9,6 +9,7 @@ import {
 import CodeBackground from "./components/layout/CodeBackground";
 import Sidebar from "./components/layout/Sidebar";
 import StatusBar from "./components/layout/StatusBar";
+import TabTitle from "./components/layout/TabTitle";
 import TopBar from "./components/layout/TopBar";
 import {
   ContactCount,
@@ -32,6 +33,8 @@ function App() {
 
   return (
     <ToastProvider>
+      <TabTitle />
+
       <div className="app-background relative flex min-h-screen text-slate-950 dark:text-slate-100 lg:h-dvh lg:overflow-hidden">
         <CodeBackground />
 
