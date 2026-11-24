@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DatabaseBackup } from "lucide-react";
+import { NavLink, useLocation } from "react-router-dom";
+import { useNow } from "../../hooks/useNow";
 import ThemeToggle from "../ui/ThemeToggle";
 import BackupDialog from "./BackupDialog";
 import WorkspaceStrip from "./WorkspaceStrip";
@@ -17,42 +19,60 @@ function formatClock(date: Date) {
 }
 
 function TopBarClock() {
-  const [now, setNow] = useState(() => new Date());
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => setNow(new Date()), 1000);
-
-    return () => window.clearInterval(intervalId);
-  }, []);
+  const now = useNow(1000);
 
   return (
-    <span className="text-sm font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+    <span className="hidden text-sm font-semibold tabular-nums text-slate-900 dark:text-slate-100 sm:inline">
       {formatClock(now)}
     </span>
   );
 }
 
-function TopBar({ theme, onToggleTheme }: TopBarProps) {
-  const [isBackupOpen, setIsBackupOpen] = useState(false);
+function pageLabel(pathname: string) {
+  if (pathname === "/") return "Workspace";
+  if (pathname.startsWith("/tools")) return "Dev tools";
+  return "Not found";
+}
+
+// The side rail is hidden on phones, so these two links stand in for it.
+function MobileNav() {
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `rounded-lg px-2.5 py-1 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+      isActive
+        ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+        : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+    }`;
 
   return (
-    <header className="flex h-12 shrink-0 items-center gap-4 border-b border-slate-200 bg-white/80 px-4 dark:border-slate-800 dark:bg-slate-900/80">
-      <div className="flex items-center gap-2 lg:hidden">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
-          D
-        </div>
-      </div>
+    <nav aria-label="Main" className="flex gap-1 lg:hidden">
+      <NavLink to="/" end className={linkClass}>
+        Desk
+      </NavLink>
+      <NavLink to="/tools" className={linkClass}>
+        Tools
+      </NavLink>
+    </nav>
+  );
+}
 
+function TopBar({ theme, onToggleTheme }: TopBarProps) {
+  const [isBackupOpen, setIsBackupOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  return (
+    <header className="flex h-12 shrink-0 items-center gap-2 border-b border-slate-200 bg-white/80 px-3 dark:border-slate-800 dark:bg-slate-900/80 sm:gap-4 sm:px-4">
       <div className="flex items-baseline gap-2">
         <span className="text-sm font-bold text-slate-950 dark:text-slate-100">
           DevDesk
         </span>
         <span className="hidden text-sm text-slate-400 dark:text-slate-500 sm:inline">
-          / Workspace
+          / {pageLabel(pathname)}
         </span>
       </div>
 
-      <div className="ml-auto flex items-center gap-4">
+      <MobileNav />
+
+      <div className="ml-auto flex items-center gap-2 sm:gap-4">
         <WorkspaceStrip />
         <TopBarClock />
 
