@@ -1,5 +1,9 @@
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useNow } from "../../hooks/useNow";
+import { countDueContacts } from "../../lib/contacts";
+import { toDateKey } from "../../lib/followUp";
 import { STORAGE_KEYS } from "../../lib/storageKeys";
+import type { Contact } from "../../types/contact";
 
 type StoredTodo = { isCompleted: boolean };
 type StoredItem = { id: string };
@@ -18,9 +22,15 @@ export function NoteCount() {
 }
 
 export function ContactCount() {
-  const [contacts] = useLocalStorage<StoredItem[]>(STORAGE_KEYS.contacts, []);
+  const [contacts] = useLocalStorage<Contact[]>(STORAGE_KEYS.contacts, []);
+  const now = useNow(60_000);
+  const dueCount = countDueContacts(contacts, toDateKey(now));
 
-  return <>{contacts.length} saved</>;
+  return (
+    <>
+      {contacts.length} saved{dueCount > 0 ? ` · ${dueCount} due` : ""}
+    </>
+  );
 }
 
 export function WeatherCity() {

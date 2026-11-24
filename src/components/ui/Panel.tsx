@@ -44,8 +44,8 @@ function Panel({
       </header>
 
       <div
-        className={`min-h-0 flex-1 ${
-          scroll ? "thin-scrollbar overflow-y-auto pr-1" : "flex flex-col"
+        className={`flex min-h-0 flex-1 flex-col ${
+          scroll ? "thin-scrollbar overflow-y-auto pr-1" : ""
         }`}
       >
         {children}

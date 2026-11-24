@@ -68,7 +68,12 @@ const VALIDATORS: Record<string, (value: unknown) => boolean> = {
         isString(item.role) &&
         isString(item.note) &&
         isString(item.linkedinUrl) &&
-        (item.linkedinUrl === "" || /^https?:\/\//i.test(item.linkedinUrl)),
+        (item.linkedinUrl === "" || /^https?:\/\//i.test(item.linkedinUrl)) &&
+        (item.company === undefined || isString(item.company)) &&
+        (item.followUpOn === undefined ||
+          (isString(item.followUpOn) &&
+            (item.followUpOn === "" ||
+              /^\d{4}-\d{2}-\d{2}$/.test(item.followUpOn)))),
     ),
   [STORAGE_KEYS.weatherCity]: (value) => isString(value) && value.length <= 100,
   [STORAGE_KEYS.githubUsername]: (value) =>

@@ -29,11 +29,11 @@ function ClockPanel() {
   }, []);
 
   return (
-    <div>
-      <p className="text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
+    <div className="flex flex-1 flex-col items-center justify-center py-2 text-center">
+      <p className="text-4xl font-bold tabular-nums tracking-tight text-slate-950 dark:text-white xl:text-5xl">
         {formatTime(currentDate)}
       </p>
-      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+      <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">
         {formatDate(currentDate)}
       </p>
     </div>
