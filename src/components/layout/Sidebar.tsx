@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { LayoutDashboard, Wrench, type LucideProps } from "lucide-react";
+import { LayoutDashboard, Settings, Wrench, type LucideProps } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 type NavItem = {
@@ -13,6 +13,13 @@ const NAV_ITEMS: NavItem[] = [
   { to: "/", label: "Desk", icon: LayoutDashboard, end: true },
   { to: "/tools", label: "Tools", icon: Wrench, end: false },
 ];
+
+const itemClass = ({ isActive }: { isActive: boolean }) =>
+  `flex w-12 flex-col items-center gap-1 rounded-lg py-2 text-[10px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+    isActive
+      ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+      : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+  }`;
 
 function Sidebar() {
   return (
@@ -31,19 +38,21 @@ function Sidebar() {
             key={to}
             to={to}
             end={end}
-            className={({ isActive }) =>
-              `flex w-11 flex-col items-center gap-1 rounded-lg py-2 text-[10px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-sky-500 ${
-                isActive
-                  ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
-                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
-              }`
-            }
+            className={itemClass}
           >
             <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
             {label}
           </NavLink>
         ))}
       </nav>
+
+      <NavLink
+        to="/settings"
+        className={(state) => `mt-auto ${itemClass(state)}`}
+      >
+        <Settings size={18} strokeWidth={1.75} aria-hidden="true" />
+        Settings
+      </NavLink>
     </aside>
   );
 }

@@ -10,6 +10,34 @@
     />
     <meta name="theme-color" content="#0f172a" />
     <title>DevDesk</title>
+    <script>
+      // Applies the saved mode and theme before the page paints, so there is
+      // no flash of the wrong colours. Keep the theme names in step with
+      // src/lib/themes.ts.
+      (function () {
+        try {
+          var root = document.documentElement;
+          var saved = {};
+          try {
+            saved = JSON.parse(localStorage.getItem("devdesk-appearance") || "null") || {};
+          } catch (parseError) {}
+          var legacy = localStorage.getItem("devdesk-theme");
+          var mode =
+            saved.mode === "light" || saved.mode === "dark"
+              ? saved.mode
+              : legacy === "light" || legacy === "dark"
+                ? legacy
+                : window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "dark"
+                  : "light";
+          var darkThemes = ["navy", "tokyo", "mocha", "ember"];
+          var lightThemes = ["cool", "paper", "mist"];
+          root.classList.toggle("dark", mode === "dark");
+          root.dataset.darkTheme = darkThemes.indexOf(saved.darkTheme) > -1 ? saved.darkTheme : "navy";
+          root.dataset.lightTheme = lightThemes.indexOf(saved.lightTheme) > -1 ? saved.lightTheme : "cool";
+        } catch (error) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

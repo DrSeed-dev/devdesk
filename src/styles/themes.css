@@ -1,0 +1,156 @@
+/* DevDesk colour themes.
+ *
+ * Every colour in the app comes from Tailwind's colour variables, so a theme
+ * only has to redefine two scales and nothing else needs to change:
+ *   --color-slate-*  the greys: backgrounds, borders and text
+ *   --color-sky-*    the accent: buttons, links and focus rings
+ * Plus --app-bg and --app-glow for the page background.
+ *
+ * The built-in themes "navy" (dark) and "cool" (light) use Tailwind's own
+ * colours, so they need no rules here.
+ *
+ * The <html> element carries the choice: class "dark" for dark mode, and
+ * data-dark-theme / data-light-theme for the theme within each mode.
+ * Edit the hex values below to tune a theme. Keep text readable: slate-100
+ * is the main text in dark themes and slate-900 in light themes.
+ */
+
+/* Tokyo Night (dark) */
+html.dark[data-dark-theme="tokyo"] {
+  --color-slate-50: #e6eaff;
+  --color-slate-100: #cdd6fa;
+  --color-slate-200: #b9c4f0;
+  --color-slate-300: #a2aed8;
+  --color-slate-400: #8d99c6;
+  --color-slate-500: #6c7499;
+  --color-slate-600: #50587a;
+  --color-slate-700: #3b4261;
+  --color-slate-800: #292e42;
+  --color-slate-900: #1f2335;
+  --color-slate-950: #16161e;
+  --color-sky-50: #f0f4ff;
+  --color-sky-100: #e0e8ff;
+  --color-sky-200: #c4d3fd;
+  --color-sky-300: #a4bdfb;
+  --color-sky-400: #7aa2f7;
+  --color-sky-500: #5f87e0;
+  --color-sky-600: #3d59a1;
+  --color-sky-700: #324a87;
+  --color-sky-800: #283b6c;
+  --color-sky-900: #1f2d52;
+  --color-sky-950: #161f3a;
+  --app-bg: #16161e;
+  --app-glow: rgba(122, 162, 247, 0.10);
+}
+
+/* Catppuccin Mocha (dark) */
+html.dark[data-dark-theme="mocha"] {
+  --color-slate-50: #ebeeff;
+  --color-slate-100: #cdd6f4;
+  --color-slate-200: #bac2de;
+  --color-slate-300: #a6adc8;
+  --color-slate-400: #9399b2;
+  --color-slate-500: #7f849c;
+  --color-slate-600: #6c7086;
+  --color-slate-700: #45475a;
+  --color-slate-800: #313244;
+  --color-slate-900: #1e1e2e;
+  --color-slate-950: #11111b;
+  --color-sky-50: #f8f3fe;
+  --color-sky-100: #eee2fd;
+  --color-sky-200: #e0cbfb;
+  --color-sky-300: #d4b6f9;
+  --color-sky-400: #cba6f7;
+  --color-sky-500: #b48df0;
+  --color-sky-600: #8a4fe0;
+  --color-sky-700: #7440c4;
+  --color-sky-800: #55308f;
+  --color-sky-900: #3e2468;
+  --color-sky-950: #2a1a4a;
+  --app-bg: #11111b;
+  --app-glow: rgba(203, 166, 247, 0.09);
+}
+
+/* Ember (dark) */
+html.dark[data-dark-theme="ember"] {
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f5;
+  --color-slate-200: #e4e4e7;
+  --color-slate-300: #d4d4d8;
+  --color-slate-400: #a1a1aa;
+  --color-slate-500: #71717a;
+  --color-slate-600: #52525b;
+  --color-slate-700: #3f3f46;
+  --color-slate-800: #27272a;
+  --color-slate-900: #18181b;
+  --color-slate-950: #0e0e10;
+  --color-sky-50: #fffbeb;
+  --color-sky-100: #fef3c7;
+  --color-sky-200: #fde68a;
+  --color-sky-300: #fbbf24;
+  --color-sky-400: #f59e0b;
+  --color-sky-500: #d97706;
+  --color-sky-600: #b45309;
+  --color-sky-700: #92400e;
+  --color-sky-800: #78350f;
+  --color-sky-900: #552a0c;
+  --color-sky-950: #2e1706;
+  --app-bg: #0e0e10;
+  --app-glow: rgba(245, 158, 11, 0.07);
+}
+
+/* Warm paper (light) */
+html:not(.dark)[data-light-theme="paper"] {
+  --color-slate-50: #faf7f0;
+  --color-slate-100: #f1ebdf;
+  --color-slate-200: #e6dfd0;
+  --color-slate-300: #d3c9b6;
+  --color-slate-400: #928873;
+  --color-slate-500: #6f685b;
+  --color-slate-600: #575145;
+  --color-slate-700: #443f36;
+  --color-slate-800: #322e27;
+  --color-slate-900: #25221d;
+  --color-slate-950: #171512;
+  --color-sky-50: #edf2ff;
+  --color-sky-100: #dbe4ff;
+  --color-sky-200: #bac8ff;
+  --color-sky-300: #91a7ff;
+  --color-sky-400: #748ffc;
+  --color-sky-500: #5c7cfa;
+  --color-sky-600: #3b5bdb;
+  --color-sky-700: #364fc7;
+  --color-sky-800: #2f44a6;
+  --color-sky-900: #263785;
+  --color-sky-950: #1b2766;
+  --app-bg: #f4efe6;
+  --app-glow: rgba(116, 143, 252, 0.12);
+}
+
+/* Cool mist (light) */
+html:not(.dark)[data-light-theme="mist"] {
+  --color-slate-50: #f6f7fd;
+  --color-slate-100: #eceef9;
+  --color-slate-200: #dde1f0;
+  --color-slate-300: #c4cae2;
+  --color-slate-400: #868db0;
+  --color-slate-500: #5f6589;
+  --color-slate-600: #4d5378;
+  --color-slate-700: #3a3f60;
+  --color-slate-800: #292d4a;
+  --color-slate-900: #1b1f3a;
+  --color-slate-950: #10132a;
+  --color-sky-50: #f1f1ff;
+  --color-sky-100: #e4e4fd;
+  --color-sky-200: #cbcbf9;
+  --color-sky-300: #aaaaf2;
+  --color-sky-400: #8686e8;
+  --color-sky-500: #6c6cdc;
+  --color-sky-600: #5555cc;
+  --color-sky-700: #4747b5;
+  --color-sky-800: #3a3a92;
+  --color-sky-900: #2d2d70;
+  --color-sky-950: #1f1f4d;
+  --app-bg: #eceff7;
+  --app-glow: rgba(108, 108, 220, 0.12);
+}

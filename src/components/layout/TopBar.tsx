@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DatabaseBackup } from "lucide-react";
+import { DatabaseBackup, Settings } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useNow } from "../../hooks/useNow";
 import ThemeToggle from "../ui/ThemeToggle";
@@ -31,6 +31,7 @@ function TopBarClock() {
 function pageLabel(pathname: string) {
   if (pathname === "/") return "Workspace";
   if (pathname.startsWith("/tools")) return "Dev tools";
+  if (pathname === "/settings") return "Settings";
   return "Not found";
 }
 
@@ -50,6 +51,14 @@ function MobileNav() {
       </NavLink>
       <NavLink to="/tools" className={linkClass}>
         Tools
+      </NavLink>
+      <NavLink
+        to="/settings"
+        aria-label="Settings"
+        title="Settings"
+        className={linkClass}
+      >
+        <Settings size={14} aria-hidden="true" />
       </NavLink>
     </nav>
   );

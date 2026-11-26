@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/themes.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -38,22 +39,34 @@ body {
   }
 }
 
+/* The page colour and glow come from the active theme (see themes.css).
+   The values after the commas are the original navy and cool-white looks. */
 .app-background {
-  background-color: #f8fafc;
+  background-color: var(--app-bg, #f8fafc);
   background-image: radial-gradient(
     circle at 15% 0%,
-    rgba(56, 189, 248, 0.14),
+    var(--app-glow, rgba(56, 189, 248, 0.14)),
     transparent 45%
   );
 }
 
 .dark .app-background {
-  background-color: #020617;
+  background-color: var(--app-bg, #020617);
   background-image: radial-gradient(
     circle at 15% 0%,
-    rgba(56, 189, 248, 0.1),
+    var(--app-glow, rgba(56, 189, 248, 0.1)),
     transparent 45%
   );
+}
+
+/* Makes the browser's own controls (date pickers, scrollbars, form fields)
+   match the mode instead of staying light inside a dark page. */
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 /* Thin, theme-aware scrollbar for the fixed-height list containers
@@ -61,11 +74,11 @@ body {
    and clashes with the rest of the restrained visual language. */
 .thin-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgb(203 213 225) transparent;
+  scrollbar-color: var(--color-slate-300, rgb(203 213 225)) transparent;
 }
 
 .dark .thin-scrollbar {
-  scrollbar-color: rgb(51 65 85) transparent;
+  scrollbar-color: var(--color-slate-700, rgb(51 65 85)) transparent;
 }
 
 .thin-scrollbar::-webkit-scrollbar {
@@ -77,12 +90,12 @@ body {
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgb(203 213 225);
+  background-color: var(--color-slate-300, rgb(203 213 225));
   border-radius: 9999px;
 }
 
 .dark .thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgb(51 65 85);
+  background-color: var(--color-slate-700, rgb(51 65 85));
 }
 /* Quote ticker in the status bar: long quotes scroll, short ones stay put. */
 @keyframes fade-in {

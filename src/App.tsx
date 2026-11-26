@@ -4,13 +4,14 @@ import AppShell from "./components/layout/AppShell";
 import TabTitle from "./components/layout/TabTitle";
 import { TOOLS } from "./components/tools/toolRegistry";
 import { ToastProvider } from "./context/ToastContext";
-import { useTheme } from "./hooks/useTheme";
+import { useAppearance } from "./hooks/useAppearance";
 import DashboardPage from "./pages/DashboardPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SettingsPage from "./pages/SettingsPage";
 import ToolsPage from "./pages/ToolsPage";
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  const { mode, toggleMode } = useAppearance();
 
   return (
     <BrowserRouter>
@@ -18,7 +19,7 @@ function App() {
         <TabTitle />
         <AlarmWatcher />
 
-        <AppShell theme={theme} onToggleTheme={toggleTheme}>
+        <AppShell theme={mode} onToggleTheme={toggleMode}>
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route
@@ -26,6 +27,7 @@ function App() {
               element={<Navigate to={`/tools/${TOOLS[0].id}`} replace />}
             />
             <Route path="/tools/:toolId" element={<ToolsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AppShell>
